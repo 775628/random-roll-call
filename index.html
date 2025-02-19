@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="displayName">点击开始随机</h1>
+        <button id="startStopButton">开始随机</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<style>
+body {
+    background-color: #f0f0f0; /* 淡雅的背景色 */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem; /* 非常大的字体 */
+    color: #333;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<script>
+const names = ["张三", "李四", "王五", "赵六", "孙七", "周八", "吴九", "郑十"]; // 你可以替换成你想要的名字列表
+let intervalId;
+let isRunning = false;
+
+const displayName = document.getElementById('displayName');
+const startStopButton = document.getElementById('startStopButton');
+
+startStopButton.addEventListener('click', () => {
+    if (isRunning) {
+        stopRandom();
+    } else {
+        startRandom();
+    }
+});
+
+function startRandom() {
+    isRunning = true;
+    startStopButton.textContent = '停止随机';
+    intervalId = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * names.length);
+        displayName.textContent = names[randomIndex];
+    }, 100); // 每100毫秒切换一次名字
+}
+
+function stopRandom() {
+    isRunning = false;
+    startStopButton.textContent = '开始随机';
+    clearInterval(intervalId);
+}
+</script>
